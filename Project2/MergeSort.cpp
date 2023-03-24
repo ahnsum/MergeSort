@@ -6,7 +6,7 @@ using namespace std;
 
 class MergeSort {
 private:
-	int temp[10];
+	int temp[100] = {};
 public:
 	void merge(int*, int, int, int);
 	void merge_sort(int*, int, int);
@@ -15,7 +15,7 @@ public:
 void MergeSort::merge(int* arr, int left, int middle, int right) {
 
 	int i, j, k;
-
+	
 	i = left;
 	j = middle + 1;
 	k = left; // 임시 배열 인덱스 값
@@ -67,42 +67,71 @@ void MergeSort::merge_sort(int* arr, int left, int right) {
 
 int main() {
 
+	
 	MergeSort ms;
+	
+	int arr[100] = {};
+	char exit = ' ';
+	int size = 0;	
 
-	int arr[] = { 10, 4, 2, 7, 9, 3, 5, 1, 8, 6 };
 
-	cout << "============================================" << endl;
+	while (1) {
 
-	for (int i = 0; i < 10; i++) {
-		if (i > 0 && i < 9) {
-			cout << arr[i] << ", ";
+		size = 0;
+
+		if (exit == 'q') {
+			break;
 		}
-		else if (i == 0) {
-			cout << "정렬 전 :: [ " << arr[i] << ", ";
+
+		cout << "\n================================================" << endl;
+		cout << "정수 배열 입력 :: ";
+		for (int i = 0; i < 100; i++) {
+			cin >> arr[i];
+
+			if (cin.get() == '\n') {
+				break;
+			}
+
+			size++;
 		}
-		else {
-			cout << arr[i] << " ]" << endl;
+	
+		cout << "\nsize :: " << size+1 << endl;
+	
+
+		for (int i = 0; i < size+1; i++) {
+			if (i > 0 && i < size) {
+				cout << arr[i] << ", ";
+			}
+			else if (i == 0) {
+				cout << "\n정렬 전 :: [ " << arr[i] << ", ";
+			}
+			else {
+				cout << arr[i] << " ]" << endl;
+			}
 		}
+
+		cout << "================================================" << endl;
+		cout << "================== Merge Sort ==================" << endl;
+		cout << "================================================" << endl;
+
+		ms.merge_sort(arr, 0, size);
+
+		for (int i = 0; i < size+1; i++) {
+			if (i > 0 && i < size) {
+				cout << arr[i] << ", ";
+			}
+			else if (i == 0) {
+				cout << "정렬 후 :: [ " << arr[i] << ", ";
+			}
+			else {
+				cout << arr[i] << " ]" << endl;
+			}
+		}
+		cout << "================================================" << endl;
+
+		cout << "(q 입력 시 종료) :: ";
+		cin >> exit;
 	}
-
-	cout << "============================================" << endl;
-	cout << "================ Merge Sort ================" << endl;
-	cout << "============================================" << endl;
-
-	ms.merge_sort(arr, 0, 9);
-
-	for (int i = 0; i < 10; i++) {
-		if (i > 0 && i < 9) {
-			cout << arr[i] << ", ";
-		}
-		else if (i == 0) {
-			cout << "정렬 후 :: [ " << arr[i] << ", ";
-		}
-		else {
-			cout << arr[i] << " ]" << endl;
-		}
-	}
-	cout << "============================================" << endl;
 
 	return 0;
 }
